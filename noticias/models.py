@@ -16,7 +16,7 @@ class Artigo(models.Model):
 
 class Comentario(models.Model):
     artigo = models.ForeignKey(Artigo, on_delete=models.CASCADE, related_name='comentarios')
-    texto_comentario = models.TextField(verbose_name="O teu comentário")
+    texto_comentario = models.TextField(verbose_name="Escreva aqui a sua opinião")
     # Guarda automaticamente o momento exato em que o comentário foi feito
     data_criacao = models.DateTimeField(auto_now_add=True)
 
