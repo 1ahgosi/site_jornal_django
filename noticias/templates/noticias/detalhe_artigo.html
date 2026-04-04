@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ artigo.titulo }}</title>
+</head>
+<body>
+    <a href="{% url 'lista_artigos' %}">← Voltar à página inicial</a>
+    
+    <hr>
+    
+    <h1>{{ artigo.titulo }}</h1>
+    <p>{{ artigo.corpo_texto }}</p>
+    
+    <hr>
+    
+    <a href="#"><button>Ver / Adicionar Comentários</button></a>
+</body>
+</html>
