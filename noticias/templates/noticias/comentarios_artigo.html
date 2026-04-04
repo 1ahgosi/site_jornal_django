@@ -24,11 +24,11 @@
     <div class="card border-0 bg-light p-4 shadow-sm mb-5">
         <h4 class="mb-3">Deixar um comentário</h4>
         <form method="POST">
-            {% csrf_token %}
-            <div class="mb-3">
-                <textarea class="form-control" name="texto_comentario" rows="4" placeholder="Escreve aqui o teu comentário..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-success">Publicar Comentário</button>
-        </form>
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.texto_comentario }} </div>
+        <button type="submit" class="btn btn-success">Publicar Comentário</button>
+    </form>
+    <small class="text-muted">{{ comentario.data_criacao|timesince }} atrás</small>
     </div>
 {% endblock %}

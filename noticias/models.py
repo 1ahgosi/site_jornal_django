@@ -1,23 +1,27 @@
 from django.db import models
+from django.utils import timezone
 
 class Artigo(models.Model):
-    # Campo para o título (máximo de 200 caracteres é um padrão comum)
     titulo = models.CharField(max_length=200)
-    # Campo para o conteúdo do artigo (sem limite de caracteres)
     corpo_texto = models.TextField()
+    # Adicionamos a data de publicação (assume o momento em que é criado)
+    data_publicacao = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        # Ordena os artigos do mais recente para o mais antigo (o sinal '-' faz a inversão)
+        ordering = ['-data_publicacao']
 
     def __str__(self):
-        # Isto faz com que o Django mostre o título do artigo no Admin
         return self.titulo
 
 class Comentario(models.Model):
-    # Relação ForeignKey: associa um comentário a um artigo específico.
-    # on_delete=models.CASCADE significa que se o artigo for apagado, 
-    # os comentários dele também serão.
     artigo = models.ForeignKey(Artigo, on_delete=models.CASCADE, related_name='comentarios')
-    # O conteúdo do comentário
-    texto_comentario = models.TextField()
+    texto_comentario = models.TextField(verbose_name="O teu comentário")
+    # Guarda automaticamente o momento exato em que o comentário foi feito
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-data_criacao']
 
     def __str__(self):
-        # Mostra uma breve descrição do comentário no Admin
         return f"Comentário em: {self.artigo.titulo}"

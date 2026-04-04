@@ -11,6 +11,7 @@
                 <div class="card h-100 shadow-sm border-0">
                     <div class="card-body">
                         <h5 class="card-title fw-bold">{{ artigo.titulo }}</h5>
+                        <p class="text-muted small">Publicado a {{ artigo.data_publicacao|date:"d \d\e F \d\e Y, H:i" }}</p>
                         <p class="card-text text-muted">{{ artigo.corpo_texto|truncatechars:100 }}</p>
                         <a href="{% url 'detalhe_artigo' artigo.id %}" class="btn btn-outline-primary btn-sm">Ler Artigo Completo &rarr;</a>
                     </div>
