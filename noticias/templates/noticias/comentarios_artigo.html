@@ -1,34 +1,34 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Comentários - {{ artigo.titulo }}</title>
-</head>
-<body>
-    <a href="{% url 'detalhe_artigo' artigo.id %}">← Voltar ao artigo</a>
+{% extends 'noticias/base.html' %}
+
+{% block titulo %}Comentários - {{ artigo.titulo }}{% endblock %}
+
+{% block conteudo %}
+    <div class="mb-4">
+        <a href="{% url 'detalhe_artigo' artigo.id %}" class="btn btn-outline-secondary btn-sm">&larr; Voltar ao artigo</a>
+    </div>
+
+    <h3 class="mb-4">Comentários sobre: <span class="text-primary">{{ artigo.titulo }}</span></h3>
     
-    <hr>
-    
-    <h1>Comentários sobre: {{ artigo.titulo }}</h1>
-    
-    <ul>
+    <div class="mb-5">
         {% for comentario in comentarios %}
-            <li>
-                <p>{{ comentario.texto_comentario }}</p>
-            </li>
+            <div class="card mb-3 shadow-sm border-0 bg-white">
+                <div class="card-body">
+                    <p class="mb-0">{{ comentario.texto_comentario|linebreaksbr }}</p>
+                </div>
+            </div>
         {% empty %}
-            <p>Ainda não há comentários. Sê o primeiro a comentar!</p>
+            <div class="alert alert-light border">Ninguém comentou ainda. Sê o primeiro a partilhar a tua opinião!</div>
         {% endfor %}
-    </ul>
+    </div>
     
-    <hr>
-    
-    <h3>Deixar um comentário</h3>
-    <form method="POST">
-        {% csrf_token %} <textarea name="texto_comentario" rows="4" cols="50" placeholder="Escreve aqui o teu comentário..." required></textarea>
-        <br><br>
-        <button type="submit">Submeter Comentário</button>
-    </form>
-    
-</body>
-</html>
+    <div class="card border-0 bg-light p-4 shadow-sm mb-5">
+        <h4 class="mb-3">Deixar um comentário</h4>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <textarea class="form-control" name="texto_comentario" rows="4" placeholder="Escreve aqui o teu comentário..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Publicar Comentário</button>
+        </form>
+    </div>
+{% endblock %}

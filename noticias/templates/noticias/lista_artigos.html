@@ -1,20 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>O Meu Jornal</title>
-</head>
-<body>
-    <h1>Últimas Notícias</h1>
+{% extends 'noticias/base.html' %}
+
+{% block titulo %}Últimas Notícias - O Meu Jornal{% endblock %}
+
+{% block conteudo %}
+    <h2 class="mb-4 text-primary border-bottom pb-2">Últimas Notícias</h2>
     
-    <ul>
+    <div class="row">
         {% for artigo in artigos %}
-            <li>
-                <a href="{% url 'detalhe_artigo' artigo.id %}">{{ artigo.titulo }}</a>
-            </li>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">{{ artigo.titulo }}</h5>
+                        <p class="card-text text-muted">{{ artigo.corpo_texto|truncatechars:100 }}</p>
+                        <a href="{% url 'detalhe_artigo' artigo.id %}" class="btn btn-outline-primary btn-sm">Ler Artigo Completo &rarr;</a>
+                    </div>
+                </div>
+            </div>
         {% empty %}
-            <p>Ainda não há artigos publicados.</p>
+            <div class="alert alert-info">Ainda não há artigos publicados.</div>
         {% endfor %}
-    </ul>
-</body>
-</html>
+    </div>
+{% endblock %}
